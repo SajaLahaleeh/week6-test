@@ -1,17 +1,21 @@
 const fs = require("fs");
-const path = require("path");
 
-const dbConnection = require("/db_connection.js");
-const sql = fs.readFileSync(`${__dirname}/db_bulid.sql`).toString();
+const dbConnection = require("./db_connection");
 
-const rubDbBuild = cb => {
-  dbConnection.query(sql, cb);
-};
-rubDbBuild((err, res) => {
-  if (err) {
-    throw err;
-  }
-  return res;
-});
+const sql = fs.readFileSync(`${__dirname}/db_build.sql`).toString();
+
+const runDbBuild = cb => dbConnection.query(sql, cb);
+
+if (process.env.NODE_ENV === "test") {
+  module.exports = runDbBuild;
+} else {
+  runDbBuild((error, result) => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log(result);
+    }
+  });
+}
 
 module.exports = rubDbBuild;

@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/shahenazmonia/week6-test#readme",
   "devDependencies": {
-    "nodemon": "^1.19.1"
+    "env2": "^2.2.2",
+    "nodemon": "^1.19.1",
+    "pg": "^7.12.0"
   }
 }
